@@ -43,6 +43,4 @@ Para compilar e executar o jogo, siga os passos abaixo:
 ## Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir _issues_ e enviar _pull requests_.
 
----
 
-Desenvolvido com dedicação pela equipe da CESAR School para o curso de Sistemas de Informação, turma 2024.2.
