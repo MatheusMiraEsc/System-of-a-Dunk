@@ -6,79 +6,121 @@
 */
 
 #include <string.h>
-
+#include <stdio.h>
+#include "menu.h"
+#include "movimento.h"
+#include "mecanica.h"
+#include "feedback.h"
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 34, y = 12;
+int jogador1X = 10, jogador1Y= 12;
+int jogador2X = 70, jogador2Y = 12;
 int incX = 1, incY = 1;
-
-void printHello(int nextX, int nextY)
-{
-    screenSetColor(CYAN, DARKGRAY);
-    screenGotoxy(x, y);
-    printf("           ");
-    x = nextX;
-    y = nextY;
-    screenGotoxy(x, y);
-    printf("Hello World");
-}
-
-void printKey(int ch)
-{
-    screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(35, 22);
-    printf("Key code :");
-
-    screenGotoxy(34, 23);
-    printf("            ");
-    
-    if (ch == 27) screenGotoxy(36, 23);
-    else screenGotoxy(39, 23);
-
-    printf("%d ", ch);
-    while (keyhit())
-    {
-        printf("%d ", readch());
-    }
-}
 
 int main() 
 {
     static int ch = 0;
+    int estadoJogo=0;
+
 
     screenInit(1);
     keyboardInit();
     timerInit(50);
 
-    printHello(x, y);
-    screenUpdate();
+   
+    while(1){
+        if (estadoJogo==0){
+            ch = exibirMenu();
 
-    while (ch != 10) //enter
-    {
-        // Handle user input
-        if (keyhit()) 
-        {
-            ch = readch();
-            printKey(ch);
-            screenUpdate();
+            if (ch == 0){
+                estadoJogo = 1;
+            }
+            else if (ch == 1){
+                estadoJogo = 2;
+            }
         }
+        else if(estadoJogo ==1){
+            while(1){
+                if (keyhit()){
+                    ch = readch();
+                    printf("Tecla pressionada: %c\n", ch);
+                    if(ch == 'W' || ch == 'A' || ch == 'S' || ch == 'D')
+                    {
+                        moverJogador1(ch);
+                    }
+                    else if(ch == 'I' || ch == 'J' || ch == 'K' || ch == 'L')
+                    {
+                        moverJogador2(ch);
+                    }
+                    else if(ch == 'C')
+                    {
+                        if(atacarJogador1(jogador1X, jogador1Y, jogador2X, jogador2Y))
+                        {
+                            atualizarPontuacao(1, 10);
+                        }
+                    }
+                    else if(ch == 'V')
+                    {
+                        if(defenderJogador1(jogador1X, jogador1Y, jogador2X, jogador2Y))
+                        {
+                            atualizarPontuacao(1, 5);
+                        }
+                    }
+                    else if(ch == 'M')
+                    {
+                        if(atacarJogador2(jogador1X, jogador1Y, jogador2X, jogador2Y))
+                        {
+                            atualizarPontuacao(2, 10);
+                        }
+                    }
+                    else if(ch == 'N')
+                    {
+                        if(defenderJogador2(jogador1X, jogador1Y, jogador2X, jogador2Y))
+                        {
+                            atualizarPontuacao(2, 5);
+                        }
+                    }
+                    else if (ch == 'Q'){
+                        if (arremessarJogador1(jogador1X, jogador1Y)){
+                            atualizarPontuacao(1, 20);
+                        }
+                    }
+                    else if (ch == 'U'){
+                        if (arremessarJogador2(jogador2X, jogador2Y)){
+                            atualizarPontuacao(2, 20);
+                        }
+                    }
+                    else if(ch == 27) //ESC
+                    {
+                        estadoJogo = 0;
+                        printf("Exibindo menu novamente...\n");
+                        break;
+                    }
+                    screenUpdate();
+                }
+            }
+        } else if(estadoJogo == 2){
+            exibirControles();
+            getchar();
+            estadoJogo = 0;
+        }
+    }
+
 
         // Update game state (move elements, verify collision, etc)
         if (timerTimeOver() == 1)
         {
-            int newX = x + incX;
+            int newX = jogador1X + incX;
             if (newX >= (MAXX -strlen("Hello World") -1) || newX <= MINX+1) incX = -incX;
-            int newY = y + incY;
+            int newY = jogador1Y + incY;
             if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
 
-            printKey(ch);
-            printHello(newX, newY);
+            screenGotoxy(newX, newY);
 
             screenUpdate();
         }
-    }
 
     keyboardDestroy();
     screenDestroy();
@@ -86,3 +128,4 @@ int main()
 
     return 0;
 }
+
