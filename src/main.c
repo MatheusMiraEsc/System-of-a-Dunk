@@ -15,9 +15,35 @@
 #include "keyboard.h"
 #include "timer.h"
 
-int jogador1X = 10, jogador1Y= 12;
-int jogador2X = 70, jogador2Y = 12;
+int jogador1X = 10, jogador1Y= 20;
+int jogador2X = 54, jogador2Y = 20;
 int incX = 1, incY = 1;
+int cestaX1 = 10, CestaY1 = 10;
+int cestaX2 = 54, CestaY2 = 10;
+
+void exibirBola(int x, int y){
+    screenGotoxy(x, y);
+    printf("O");
+}
+
+void exibirCesta1(){
+    screenGotoxy(cestaX1, CestaY1);
+    printf("----[ ]");
+    for (int i=0; i<CestaY1;i++){
+        screenGotoxy(cestaX1, CestaY1+1+i);
+        printf("|");
+    }
+}
+
+void exibirCesta2(){
+    screenGotoxy(cestaX2, CestaY2);
+    printf("[ ]----");
+    for (int i=0; i<CestaY2;i++){
+        screenGotoxy(cestaX2, CestaY2+1+i);
+        printf("|");
+    }
+}
+
 
 int main() 
 {
@@ -44,13 +70,15 @@ int main()
         else if(estadoJogo ==1){
             while(1){
                 if (keyhit()){
+                    screenClear();
                     ch = readch();
-                    printf("Tecla pressionada: %c\n", ch);
-                    if(ch == 'W' || ch == 'A' || ch == 'S' || ch == 'D')
+                    exibirCesta1();
+                    exibirCesta2();
+                    if(ch == 'W' || ch == 'A' || ch == 'D')
                     {
                         moverJogador1(ch);
                     }
-                    else if(ch == 'I' || ch == 'J' || ch == 'K' || ch == 'L')
+                    else if(ch == 'I' || ch == 'J' ||  ch == 'L')
                     {
                         moverJogador2(ch);
                     }
@@ -59,6 +87,7 @@ int main()
                         if(atacarJogador1(jogador1X, jogador1Y, jogador2X, jogador2Y))
                         {
                             atualizarPontuacao(1, 10);
+                            printf("Jogador 1 atacou jogador 2\n");
                         }
                     }
                     else if(ch == 'V')
@@ -66,6 +95,7 @@ int main()
                         if(defenderJogador1(jogador1X, jogador1Y, jogador2X, jogador2Y))
                         {
                             atualizarPontuacao(1, 5);
+                            printf("Jogador 1 defendeu\n");
                         }
                     }
                     else if(ch == 'M')
@@ -73,6 +103,7 @@ int main()
                         if(atacarJogador2(jogador1X, jogador1Y, jogador2X, jogador2Y))
                         {
                             atualizarPontuacao(2, 10);
+                            printf("Jogador 2 atacou jogador 1\n");
                         }
                     }
                     else if(ch == 'N')
@@ -80,16 +111,19 @@ int main()
                         if(defenderJogador2(jogador1X, jogador1Y, jogador2X, jogador2Y))
                         {
                             atualizarPontuacao(2, 5);
+                            printf("Jogador 2 defendeu\n");
                         }
                     }
                     else if (ch == 'Q'){
                         if (arremessarJogador1(jogador1X, jogador1Y)){
                             atualizarPontuacao(1, 20);
+                            printf("Jogador 1 acertou a cesta\n");
                         }
                     }
                     else if (ch == 'U'){
                         if (arremessarJogador2(jogador2X, jogador2Y)){
                             atualizarPontuacao(2, 20);
+                            printf("Jogador 2 acertou a cesta\n");
                         }
                     }
                     else if(ch == 27) //ESC

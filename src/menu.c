@@ -9,6 +9,7 @@ int exibirMenu(){
 
         screenClear();
         screenGotoxy(10, 5);
+        screenSetColor(WHITE, BLACK);
         printf("Bem vindo à System of a Dunk");
     while(1){
         
@@ -80,4 +81,3 @@ void exibirControles(){
     screenUpdate();
     readch();
     }
-    
