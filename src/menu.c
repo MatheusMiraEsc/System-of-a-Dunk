@@ -58,22 +58,22 @@ void exibirControles(){
     screenGotoxy(10, 7);
     printf("Jogador 1:");
     screenGotoxy(10, 8);
-    printf("W (Cima), A (Esquerda), S (Baixo), D (Direita)");
+    printf("W (Cima), A (Esquerda), D (Direita)");
     screenGotoxy(10, 9);
     printf("Ataque: C");
     screenGotoxy(10, 10);
-    printf("Defesa: V");
+    printf("Defesa: S");
     screenGotoxy(10, 11);
-    printf("Arremesso: Q");
+    printf("Arremesso: E");
 
     screenGotoxy(10, 13);
     printf("Jogador 2:");
     screenGotoxy(10, 14);
-    printf("I (Cima), J (Esquerda), K (Baixo), L (Direita)");
+    printf("I (Cima), J (Esquerda), L (Direita)");
     screenGotoxy(10, 15);
-    printf("Ataque: M");
+    printf("Ataque: N");
     screenGotoxy(10, 16);
-    printf("Defesa: N");
+    printf("Defesa: K");
     screenGotoxy(10, 17);
     printf("Arremesso: U");
     screenGotoxy(10, 19);
