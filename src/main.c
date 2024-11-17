@@ -11,15 +11,21 @@
 #include "movimento.h"
 #include "mecanica.h"
 #include "feedback.h"
+#include "collision.h"
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
 
-int jogador1X = 10, jogador1Y= 14;
-int jogador2X = 54, jogador2Y = 14;
+int J1X= 10, J1Y= 14;
+int npcX = 50, npcY = 14;
+int *jogador1X = &J1X, *jogador1Y= &J1Y;
 int incX = 1, incY = 1;
-int cestaX1 = 8, CestaY1 = 8;
 int cestaX2 = 54, CestaY2 = 8;
+int velocidadeY1 = 0;  // Velocidade de queda do jogador 1
+int puloAtivo1 = 0;  // Indica se o jogador 1 está pulando 
+int GRAVIDADE = 1;    // Aceleração devido à gravidade
+int ALTURA_PULO = 5;  // A altura máxima do pulo
+int CHAO = 14; 
 
 
 void exibirBola(int x, int y){
@@ -28,14 +34,6 @@ void exibirBola(int x, int y){
 }
 
 
-void exibirCesta1(){
-    screenGotoxy(cestaX1, CestaY1);
-    printf("----[ ]");
-    for (int i=0; i<CestaY1;i++){
-        screenGotoxy(cestaX1, CestaY1+1+i);
-        printf("|");
-    }
-}
 
 void exibirCesta2(){
     screenGotoxy(cestaX2, CestaY2);
@@ -61,7 +59,6 @@ int main()
     while(1){
         if (estadoJogo==0){
             ch = exibirMenu();
-
             if (ch == 0){
                 estadoJogo = 1;
             }
@@ -74,65 +71,16 @@ int main()
                 if (keyhit()){
                     screenClear();
                     ch = readch();
-                    exibirCesta1();
+                    screenGotoxy(1, 1);
+                    printf("Tecla pressionada: %c", ch);
+                    screenGotoxy(1, 2);
+                    printf("Pressione ESC para voltar ao menu");
                     exibirCesta2();
                     exibirJogador1(jogador1X, jogador1Y);
-                    exibirJogador2(jogador2X, jogador2Y);
-                    if(ch == 'W' || ch == 'A' || ch == 'D')
+                    exibirNpc(&npcX, &npcY);                    
+                    if(ch == 'w' || ch == 'a' || ch == 'd')
                     {
-                        screenGotoxy(15, 25);
-                        printf("Jogador 1");
                         moverJogador1(ch, jogador1X, jogador1Y);
-                    }   
-                    else if(ch == 'I' || ch == 'J' ||  ch == 'L')
-                    {
-                        screenGotoxy(15, 25);
-                        printf("Jogador 2");
-                        moverJogador2(ch, jogador2X, jogador2Y);
-                    }
-                    else if(ch == 'C')
-                    {
-                        if(atacarJogador1(jogador1X, jogador1Y, jogador2X, jogador2Y))
-                        {
-                            atualizarPontuacao(1, 10);
-                            printf("Jogador 1 atacou jogador 2\n");
-                        }
-                    }
-                    else if(ch == 'V')
-                    {
-                        if(defenderJogador1(jogador1X, jogador1Y, jogador2X, jogador2Y))
-                        {
-                            atualizarPontuacao(1, 5);
-                            printf("Jogador 1 defendeu\n");
-                        }
-                    }
-                    else if(ch == 'M')
-                    {
-                        if(atacarJogador2(jogador1X, jogador1Y, jogador2X, jogador2Y))
-                        {
-                            atualizarPontuacao(2, 10);
-                            printf("Jogador 2 atacou jogador 1\n");
-                        }
-                    }
-                    else if(ch == 'N')
-                    {
-                        if(defenderJogador2(jogador1X, jogador1Y, jogador2X, jogador2Y))
-                        {
-                            atualizarPontuacao(2, 5);
-                            printf("Jogador 2 defendeu\n");
-                        }
-                    }
-                    else if (ch == 'Q'){
-                        if (arremessarJogador1(jogador1X, jogador1Y)){
-                            atualizarPontuacao(1, 20);
-                            printf("Jogador 1 acertou a cesta\n");
-                        }
-                    }
-                    else if (ch == 'U'){
-                        if (arremessarJogador2(jogador2X, jogador2Y)){
-                            atualizarPontuacao(2, 20);
-                            printf("Jogador 2 acertou a cesta\n");
-                        }
                     }
                     else if(ch == 27) //ESC
                     {
@@ -154,9 +102,9 @@ int main()
         // Update game state (move elements, verify collision, etc)
         if (timerTimeOver() == 1)
         {
-            int newX = jogador1X + incX;
+            int newX = J1X + incX;
             if (newX >= (MAXX -strlen("Hello World") -1) || newX <= MINX+1) incX = -incX;
-            int newY = jogador1Y + incY;
+            int newY = J1Y + incY;
             if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
 
             screenGotoxy(newX, newY);

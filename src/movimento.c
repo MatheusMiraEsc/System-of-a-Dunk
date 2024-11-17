@@ -1,21 +1,20 @@
 #include "../include/movimento.h"
 #include "screen.h"
-/*
-#define MINX 0
-#define MINY 0
-#define MAXX 80  // Supondo uma tela de 80 colunas
+#include <math.h>
+
+#define MINX 1
+#define MINY 1
+#define MAXX 80  // Supondo uma tela de 30 colunas
 #define MAXY 24  // Supondo uma tela de 24 linhas
-*/
 
-extern int jogador1X, jogador1Y;
-extern int jogador2X, jogador2Y;
 
-void exibirJogador1(int x, int y){
-    screenGotoxy(x, y);
+
+void exibirJogador1(int *x, int *y){
+    screenGotoxy(*x, *y);
     printf(" O ");
-    screenGotoxy(x, y+1);
+    screenGotoxy(*x, *y+1);
     printf("/|\\");
-    screenGotoxy(x, y+2);
+    screenGotoxy(*x, *y+2);
     printf("/ \\ ");
 
     /*
@@ -26,98 +25,79 @@ void exibirJogador1(int x, int y){
     */
     
     }
-
-void exibirJogador2(int x, int y){
-    screenGotoxy(x, y);
-    printf(" O ");
-    screenGotoxy(x, y+1);
-    printf("/|\\");
-    screenGotoxy(x, y+2);
-    printf("/ \\");
-
-    /*
-    if(bolaComJogador2){
-        screenGotoxy(x+1, y+1);
-        printf("O");
-    }
-    */
-    
-    
-    }
-
-void limparJogador(int jogador1X,int jogador1Y){
-    screenGotoxy(jogador1X, jogador1Y);
-        printf("    ");
-        screenGotoxy(jogador1X, jogador1Y+1);
-        printf("    ");
-        screenGotoxy(jogador1X, jogador1Y+2);
-        printf("    ");
+void exibirNpc(int *x, int *y){
+    screenGotoxy(*x, *y);
+    printf("\\O/ ");
+    screenGotoxy(*x, *y+1);
+    printf(" | ");
+    screenGotoxy(*x, *y+2);
+    printf("/ \\ ");
 }
 
-void moverJogador1(char direcao, int jogador1X, int jogador1Y){
+
+void limparJogador(int *jogador1X,int *jogador1Y){
+    screenGotoxy(*jogador1X, *jogador1Y);
+    printf("    ");
+    screenGotoxy(*jogador1X, *jogador1Y+1);
+    printf("    ");
+    screenGotoxy(*jogador1X, *jogador1Y+2);
+    printf("    ");
+}
+
+
+void moverJogador1(char direcao, int *jogador1X, int *jogador1Y){
+    // Limpa o jogador da posição anterior
     limparJogador(jogador1X, jogador1Y);
-    if (direcao == 'W'){
-        jogador1Y-=3;
-        exibirJogador1(jogador1X, jogador1Y);
+
+    // Movimentação horizontal
+    if (direcao == 'a' && *jogador1X > MINX) { // Mover para a esquerda
+        J1X-=2;
+    } else if (direcao == 'd' && *jogador1X < MAXX - 36) { // Mover para a direita
+        J1X+=2;
+    }
+
+    // Pulo (apenas se não estiver no chão)
+    if (direcao == 'w' && *jogador1Y == CHAO) { // Começa o pulo quando o jogador estiver no chão
+        puloAtivo1 = 1;  // Ativa o pulo
+        velocidadeY1 = -ALTURA_PULO;  // Inicializa a velocidade de subida
+        J1Y+=2;
+    }
+    while(puloAtivo1){
         limparJogador(jogador1X, jogador1Y);
-        jogador1Y+=3;
-        exibirJogador1(jogador1X, jogador1Y);
-    }else if(direcao == 'A'){
-        jogador1X-=2;
-        exibirJogador1(jogador1X, jogador1Y);
-    }else if(direcao == 'D'){
-        jogador1X+=2;
-        exibirJogador1(jogador1X, jogador1Y);
-    }
-    
-    
-}
+        aplicarGravidade(jogador1Y, &velocidadeY1);
+        /*if(keyhit()){
+            char tecla = readch();
+            if(tecla =='c'){
+                screenGotoxy(J1X, J1Y);
+                printf("ARREMESSO");
+            }
+        }*/
 
-void moverJogador2(char direcao, int jogador2X, int jogador2Y){
-    if (direcao == 'I'){
-        exibirJogador1(jogador2X, jogador2Y-3);
-        exibirJogador1(jogador2X, jogador2Y);
-    }else if(direcao == 'J'){
-        exibirJogador1(jogador2X-2, jogador2Y);
-    }else if(direcao == 'L'){
-        exibirJogador1(jogador2X+2, jogador2Y);
+        if (*jogador1Y >= CHAO){
+            *jogador1Y = CHAO;
+            puloAtivo1 = 0;
+        }
+        exibirJogador1(jogador1X, jogador1Y);
+        screenUpdate();
     }
-}
 
-/*void moverJogador1(char direcao) {
-    screenClear();  // Limpar a tela antes de mover
 
-    // Limpar a posição anterior do jogador 1
-    screenGotoxy(jogador1X, jogador1Y);
-    printf("        ");
-    
-    // Atualizar a posição de acordo com a direção
-    switch (direcao) {
-        case 'W': if (jogador1Y > MINY) jogador1Y--; break;
-        case 'A': if (jogador1X > MINX) jogador1X--; break;
-        case 'S': if (jogador1Y < MAXY-3) jogador1Y++; break;
-        case 'D': if (jogador1X < MAXX-3) jogador1X++; break;
-    }
-    
-    // Exibir o jogador 1 na nova posição
+    // Exibe o jogador na nova posição
     exibirJogador1(jogador1X, jogador1Y);
+
 }
 
-void moverJogador2(char direcao) {
-    screenClear();  // Limpar a tela antes de mover
 
-    // Limpar a posição anterior do jogador 2
-    screenGotoxy(jogador2X, jogador2Y);
-    printf("        ");
-    
-    // Atualizar a posição de acordo com a direção
-    switch (direcao) {
-        case 'I': if (jogador2Y > MINY) jogador2Y--; break;
-        case 'J': if (jogador2X > MINX) jogador2X--; break;
-        case 'K': if (jogador2Y < MAXY-3) jogador2Y++; break;
-        case 'L': if (jogador2X < MAXX-3) jogador2X++; break;
+
+
+void aplicarGravidade(int *y, int *velocidadeY) {
+    if (*y < CHAO) {  // Se o jogador estiver no ar
+        *velocidadeY += GRAVIDADE;  // Aplica a gravidade
+    } else {
+        *y = CHAO;  // Impede que o jogador ultrapasse o chão
+        *velocidadeY = 0;  // Reseta a velocidade de queda
     }
-    
-    // Exibir o jogador 2 na nova posição
-    exibirJogador2(jogador2X, jogador2Y);
-}*/
+
+    *y -= *velocidadeY;  // Atualiza a posição vertical
+}
+
