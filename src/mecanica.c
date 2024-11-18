@@ -36,6 +36,7 @@ void arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int v
     int y = posYInicial;
     int velX = velXInicial;
     int velY = velYInicial;
+    int acertouCesta = 0;
 
     while (y <= CHAO || velY == 0) {
         limparPosicao(x, y);
@@ -48,13 +49,24 @@ void arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int v
         screenUpdate();
 
         usleep(INTERVALO_TEMPO);
-    }
-    limparPosicao(x, y);
-    exibirTeste(x, y, 'x');
-    if (x >= cestaX2-1 && x <= cestaX2 + 3) {
+        if (x >= cestaX2-1 && x <= cestaX2 + 3) {
         if(y >= cestaY2-1 && y <= cestaY2 + 3) {
             exibirTeste(cestaX2, cestaY2, 'o');
             atualizarPontuacao(2);
+            acertouCesta = 1;
+            usleep(INTERVALO_TEMPO*10);
+            limparPosicao(cestaX2, cestaY2);
+            break;
+            }
+        }
+
     }
+    limparPosicao(x, y);
+    if (!acertouCesta) {
+        exibirTeste(x, y, 'x');
+        usleep(INTERVALO_TEMPO*10);
+        limparPosicao(cestaX2, cestaY2);
     }
+    
+    
 }
