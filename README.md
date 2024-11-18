@@ -32,7 +32,7 @@ Para compilar e executar o jogo, siga os passos abaixo:
 
 3. Compile o código:
     ```bash
-    gcc -o system-of-a-dunk main.c
+    gcc src/*.c -I include -o system-of-a-dunk
     ```
 
 4. Execute o jogo:
