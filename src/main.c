@@ -11,7 +11,6 @@
 #include "movimento.h"
 #include "mecanica.h"
 #include "feedback.h"
-#include "collision.h"
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
@@ -26,12 +25,8 @@ int puloAtivo1 = 0;  // Indica se o jogador 1 está pulando
 int GRAVIDADE = 1;    // Aceleração devido à gravidade
 int ALTURA_PULO = 5;  // A altura máxima do pulo
 int CHAO = 14; 
-
-
-void exibirBola(int x, int y){
-    screenGotoxy(x, y);
-    printf("O");
-}
+int INTERVALO_TEMPO = 100000; // 100ms
+int velXBola = 3, velYBola = 4;
 
 
 
@@ -49,7 +44,6 @@ int main()
 {
     static int ch = 0;
     int estadoJogo=0;
-
 
     screenInit(1);
     keyboardInit();
@@ -76,11 +70,16 @@ int main()
                     screenGotoxy(1, 2);
                     printf("Pressione ESC para voltar ao menu");
                     exibirCesta2();
+                    atualizarPontuacao(0);
                     exibirJogador1(jogador1X, jogador1Y);
-                    exibirNpc(&npcX, &npcY);                    
+                    exibirNpc(&npcX, &npcY);          
                     if(ch == 'w' || ch == 'a' || ch == 'd')
                     {
                         moverJogador1(ch, jogador1X, jogador1Y);
+                    }
+                    else if(ch == 'f')
+                    {
+                        arremessarJogador1(J1X+2, J1Y-1, velXBola,velYBola);
                     }
                     else if(ch == 27) //ESC
                     {

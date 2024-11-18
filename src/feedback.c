@@ -3,15 +3,9 @@
 
 int pontuacao = 0;
 
-void atualizarPontuacao(int jogador,int pontos){
-    if(jogador == 1){
+void atualizarPontuacao(int pontos){
     pontuacao += pontos;
-    screenGotoxy(1, 1);
-    printf("Pontuacao jogador 1: %d", pontuacao);
-    }
-    else if(jogador == 2){
-    pontuacao += pontos;
-    screenGotoxy(1, 2);
-    printf("Pontuacao jogador 2: %d", pontuacao);
-    }
+    screenGotoxy(30, 1);
+    printf("Pontuacao jogador: %d", pontuacao);
+    screenUpdate();
 }

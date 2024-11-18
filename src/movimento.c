@@ -13,16 +13,10 @@ void exibirJogador1(int *x, int *y){
     screenGotoxy(*x, *y);
     printf(" O ");
     screenGotoxy(*x, *y+1);
-    printf("/|\\");
+    printf("/|\\o");
     screenGotoxy(*x, *y+2);
     printf("/ \\ ");
 
-    /*
-    if(bolaComJogador1){
-        screenGotoxy(x+1, y+1);
-        printf("O");
-    }
-    */
     
     }
 void exibirNpc(int *x, int *y){
