@@ -59,7 +59,7 @@ int main()
             if (ch == 0){
                 estadoJogo = 1;
                 confirmarJogador(jogador);
-                timerInit(1000);
+                timerInit(50);   
             }
             else if (ch == 1){
                 estadoJogo = 2;
@@ -70,11 +70,9 @@ int main()
             pontos = 0;
             while(1){
                 int tempoDecorrido = getTimeDiff() / 1000;
-                int tempoRestante = TEMPO_LIMITE - tempoDecorrido;
-                if (tempoRestante < 0) tempoRestante = 0;            
-                int diff = getTimeDiff();                                                                                            
-                if (keyhit()){
-                    timerInit(50);                                                                                                                                                                                                                                                                                                                                                      
+                int tempoRestante = (TEMPO_LIMITE/1000) - tempoDecorrido;
+                if (tempoRestante < 0) tempoRestante = 0;                                                                                        
+                if (keyhit()){                                                                                                                                                                                                                                                                                                                                                   
                     screenClear();
                     ch = readch();
                     screenGotoxy(1, 1);                                                                                                                             
@@ -87,7 +85,7 @@ int main()
                     exibirNpc(npcX, npcY);  
                     movNpc(npcX, npcY, velocidadeY1);
                     screenGotoxy(60,1);
-                    printf("Tempo restante(diff): %d", diff);
+                    printf("Tempo restante: %ds", tempoRestante);
                     if(ch == 'w' || ch == 'a' || ch == 'd')
                     {
                         moverJogador1(ch, jogador1X, jogador1Y);
