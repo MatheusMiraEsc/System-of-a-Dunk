@@ -1,6 +1,8 @@
 #include "../include/movimento.h"
+#include "../include/mecanica.h"
 #include "screen.h"
 #include <math.h>
+#include <unistd.h>
 
 #define MINX 1
 #define MINY 1
@@ -19,12 +21,12 @@ void exibirJogador1(int *x, int *y){
 
     
     }
-void exibirNpc(int *x, int *y){
-    screenGotoxy(*x, *y);
+void exibirNpc(int x, int y){
+    screenGotoxy(x, y);
     printf("\\O/ ");
-    screenGotoxy(*x, *y+1);
+    screenGotoxy(x, y+1);
     printf(" | ");
-    screenGotoxy(*x, *y+2);
+    screenGotoxy(x, y+2);
     printf("/ \\ ");
 }
 
@@ -78,6 +80,26 @@ void moverJogador1(char direcao, int *jogador1X, int *jogador1Y){
 
     // Exibe o jogador na nova posição
     exibirJogador1(jogador1X, jogador1Y);
+
+}
+void movNpc(int posXInicial, int posYInicial, int velYInicial) {
+    int x = posXInicial;
+    int y = posYInicial;
+    int velY = velYInicial;
+
+    while (y <= CHAO || velY == 0) {
+        limparJogador(&x, &y);
+        y -= velY;
+
+        velY -= GRAVIDADE;
+
+        exibirNpc(x, y);
+        screenUpdate();
+
+        usleep(INTERVALO_TEMPO);
+
+    }
+    limparJogador(&x, &y);
 
 }
 

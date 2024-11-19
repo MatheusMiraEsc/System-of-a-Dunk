@@ -9,5 +9,5 @@ extern int CHAO, GRAVIDADE, INTERVALO_TEMPO;
 void exibirTeste(int x, int y, char teste);
 void limparPosicao(int x, int y);
 void exibirBola(int x, int y);
-void arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int velYInicial);
+int arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int velYInicial);
 #endif

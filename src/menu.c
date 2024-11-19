@@ -81,3 +81,4 @@ void exibirControles(){
     screenUpdate();
     readch();
     }
+

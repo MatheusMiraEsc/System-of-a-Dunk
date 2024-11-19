@@ -1,6 +1,12 @@
 #ifndef FEEDBACK_H
 #define FEEDBACK_H
 
-void atualizarPontuacao(int pontos);
+typedef struct{
+    char nome[20];
+    int pontuacao;
+} Jogador;
 
+int atualizarPontuacao(int pontos);
+void confirmarJogador(Jogador *jogador);
+void salvarPontuacao(Jogador jogador);
 #endif

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "feedback.h"
+#include "movimento.h"
 
 int cestaY2=8;
 
@@ -31,7 +32,7 @@ void limparPosicao(int x, int y){
     printf(" ");
 }
 
-void arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int velYInicial) {
+int arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int velYInicial) {
     int x = posXInicial;
     int y = posYInicial;
     int velX = velXInicial;
@@ -52,11 +53,9 @@ void arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int v
         if (x >= cestaX2-1 && x <= cestaX2 + 3) {
         if(y >= cestaY2-1 && y <= cestaY2 + 3) {
             exibirTeste(cestaX2, cestaY2, 'o');
-            atualizarPontuacao(2);
             acertouCesta = 1;
-            usleep(INTERVALO_TEMPO*10);
             limparPosicao(cestaX2, cestaY2);
-            break;
+            return atualizarPontuacao(2);
             }
         }
 
@@ -64,9 +63,10 @@ void arremessarJogador1(int posXInicial, int posYInicial, int velXInicial, int v
     limparPosicao(x, y);
     if (!acertouCesta) {
         exibirTeste(x, y, 'x');
-        usleep(INTERVALO_TEMPO*10);
         limparPosicao(cestaX2, cestaY2);
+        return 0;
     }
-    
+    return 0;
     
 }
+
