@@ -26,12 +26,13 @@ int exibirMenu(){
         screenGotoxy(10, 8);
         if (posicaoMenu == 1){
             screenSetColor(YELLOW, BLACK);
-            printf("-> Controles");
+            printf("-> Regras/Controles");
         }
         else{
             screenSetColor(WHITE, BLACK);
-            printf("   Controles");
+            printf("   Regras/Controles");
         }
+        
         screenUpdate();
         ch = readch();
 
@@ -53,32 +54,29 @@ int exibirMenu(){
 
 void exibirControles(){
     screenClear();
+    screenGotoxy(45, 5);
+    printf("Regras:");
+    screenGotoxy(30, 7);
+    printf("1. O jogador deve arremessar a bola na cesta");
+    screenGotoxy(30, 8);
+    printf("2. Cada arremesso bem sucedido vale 2 pontos");
+    screenGotoxy(30, 9);
+    printf("3. O jogador tem 30 segundos para fazer o maior");
+    screenGotoxy(30, 10);
+    printf("   número de cestas possíveis");
     screenGotoxy(10, 5);
     printf("Controles:");
     screenGotoxy(10, 7);
-    printf("Jogador 1:");
+    printf("Esquerda: A");
     screenGotoxy(10, 8);
-    printf("W (Cima), A (Esquerda), D (Direita)");
+    printf("Direita: D");
     screenGotoxy(10, 9);
-    printf("Ataque: C");
+    printf("Pulo: W");
     screenGotoxy(10, 10);
-    printf("Defesa: S");
-    screenGotoxy(10, 11);
-    printf("Arremesso: E");
+    printf("Arremesso: F");
 
-    screenGotoxy(10, 13);
-    printf("Jogador 2:");
-    screenGotoxy(10, 14);
-    printf("I (Cima), J (Esquerda), L (Direita)");
     screenGotoxy(10, 15);
-    printf("Ataque: N");
-    screenGotoxy(10, 16);
-    printf("Defesa: K");
-    screenGotoxy(10, 17);
-    printf("Arremesso: U");
-    screenGotoxy(10, 19);
     printf("Pressione qualquer tecla para voltar ao menu");
     screenUpdate();
     readch();
     }
-

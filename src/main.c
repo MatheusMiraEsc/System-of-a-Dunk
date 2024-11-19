@@ -59,21 +59,25 @@ int main()
             if (ch == 0){
                 estadoJogo = 1;
                 confirmarJogador(jogador);
+                timerInit(1000);
             }
             else if (ch == 1){
                 estadoJogo = 2;
             }
+            
         }
         else if(estadoJogo ==1){
-            int tempoRestante = TEMPO_LIMITE - getTimeDiff();
-            if (tempoRestante < 0) tempoRestante = 0; 
-            int segundos = tempoRestante / 1000; 
-            
+            pontos = 0;
             while(1){
+                int tempoDecorrido = getTimeDiff() / 1000;
+                int tempoRestante = TEMPO_LIMITE - tempoDecorrido;
+                if (tempoRestante < 0) tempoRestante = 0;            
+                int diff = getTimeDiff();                                                                                            
                 if (keyhit()){
+                    timerInit(50);                                                                                                                                                                                                                                                                                                                                                      
                     screenClear();
                     ch = readch();
-                    screenGotoxy(1, 1);
+                    screenGotoxy(1, 1);                                                                                                                             
                     printf("Tecla pressionada: %c", ch);
                     screenGotoxy(1, 2);
                     printf("Pressione ESC para voltar ao menu");
@@ -83,9 +87,7 @@ int main()
                     exibirNpc(npcX, npcY);  
                     movNpc(npcX, npcY, velocidadeY1);
                     screenGotoxy(60,1);
-                    printf("%d", segundos);
-
-                    timerPrint();       
+                    printf("Tempo restante(diff): %d", diff);
                     if(ch == 'w' || ch == 'a' || ch == 'd')
                     {
                         moverJogador1(ch, jogador1X, jogador1Y);
@@ -100,7 +102,7 @@ int main()
                         screenClear();
                         screenGotoxy(1, 1);
                         printf("Exibindo menu novamente...\n");
-                        usleep(INTERVALO_TEMPO  * 1000);
+                        usleep(INTERVALO_TEMPO  * 20);
                         break;
                     }
                     screenUpdate();
