@@ -6,8 +6,8 @@
 
 #define MINX 1
 #define MINY 1
-#define MAXX 80  // Supondo uma tela de 30 colunas
-#define MAXY 24  // Supondo uma tela de 24 linhas
+#define MAXX 80  
+#define MAXY 24  
 
 
 
@@ -42,20 +42,19 @@ void limparJogador(int *jogador1X,int *jogador1Y){
 
 
 void moverJogador1(char direcao, int *jogador1X, int *jogador1Y){
-    // Limpa o jogador da posição anterior
+    
     limparJogador(jogador1X, jogador1Y);
 
-    // Movimentação horizontal
-    if (direcao == 'a' && *jogador1X > MINX) { // Mover para a esquerda
+    if (direcao == 'a' && *jogador1X > MINX) {
         J1X-=2;
-    } else if (direcao == 'd' && *jogador1X < MAXX - 36) { // Mover para a direita
+    } else if (direcao == 'd' && *jogador1X < MAXX - 36) { 
         J1X+=2;
     }
 
-    // Pulo (apenas se não estiver no chão)
-    if (direcao == 'w' && *jogador1Y == CHAO) { // Começa o pulo quando o jogador estiver no chão
-        puloAtivo1 = 1;  // Ativa o pulo
-        velocidadeY1 = -ALTURA_PULO;  // Inicializa a velocidade de subida
+   
+    if (direcao == 'w' && *jogador1Y == CHAO) { 
+        puloAtivo1 = 1;  
+        velocidadeY1 = -ALTURA_PULO; 
         J1Y+=2;
     }
     while(puloAtivo1){
@@ -78,7 +77,6 @@ void moverJogador1(char direcao, int *jogador1X, int *jogador1Y){
     }
 
 
-    // Exibe o jogador na nova posição
     exibirJogador1(jogador1X, jogador1Y);
 
 }
@@ -116,13 +114,13 @@ void movNpc(int posXInicial, int posYInicial, int velYInicial, int tempoRestante
 
 
 void aplicarGravidade(int *y, int *velocidadeY) {
-    if (*y < CHAO) {  // Se o jogador estiver no ar
-        *velocidadeY += GRAVIDADE;  // Aplica a gravidade
+    if (*y < CHAO) {
+        *velocidadeY += GRAVIDADE; 
     } else {
-        *y = CHAO;  // Impede que o jogador ultrapasse o chão
-        *velocidadeY = 0;  // Reseta a velocidade de queda
+        *y = CHAO; 
+        *velocidadeY = 0; 
     }
 
-    *y -= *velocidadeY;  // Atualiza a posição vertical
+    *y -= *velocidadeY;
 }
 

@@ -115,6 +115,7 @@ int main()
                     usleep(INTERVALO_TEMPO * 20);
                     exibirRanking();
                     estadoJogo = 0;
+                    break;
                 }
                 
             }
@@ -125,19 +126,7 @@ int main()
         }
     }
 
-
-        // Update game state (move elements, verify collision, etc)
-        if (timerTimeOver() == 1)
-        {
-            int newX = J1X + incX;
-            if (newX >= (MAXX -strlen("Hello World") -1) || newX <= MINX+1) incX = -incX;
-            int newY = J1Y + incY;
-            if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
-
-            screenGotoxy(newX, newY);
-
-            screenUpdate();
-        }
+        
 
     keyboardDestroy();
     screenDestroy();
