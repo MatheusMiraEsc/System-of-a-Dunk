@@ -7,6 +7,12 @@
 - **Fernanda Ramalho Bezerra**
 - **Paulo Henrique Egito Inácio da Silva**
 
+## GitHub
+- **Matheus Miranda Escorel - MatheusMiraEsc**
+- **Jorge Augusto Lacerda Vasconcelos - Jaabsolutaa**
+- **Fernanda Ramalho Bezerra - frbezerra**
+- **Paulo Henrique Egito Inácio da Silva - pauloheis**
+
 ## Descrição
 O **System-of-a-Dunk** é um jogo de basquete de terminal, desenvolvido em C, que busca proporcionar uma experiência interativa e divertida, utilizando conceitos fundamentais de programação imperativa e funcional.
 
