@@ -11,11 +11,17 @@
 O **System-of-a-Dunk** é um jogo de basquete de terminal, desenvolvido em C, que busca proporcionar uma experiência interativa e divertida, utilizando conceitos fundamentais de programação imperativa e funcional.
 O objetivo principal é arremesar a bola na cesta adversária para obter pontos, o jogador que alcançar a quantidade de pontos máxima primeiro ganha a partida.
 
-São disponibilizadas as seguintes mecânicas:
-- Movimentação horizontal e vertical (Para cima)
-- Ataque, rouba a bola do adversário caso a bola estiver em alcance
-- Defesa, muda a bola de posição, tirando-a do alcance do oponente
-- Arremesso, arremessa a bola determinada distância 
+## Mecânicas do Jogo
+
+1. Movimentação:
+    - Horizontal (esquerda/direita).
+    - Vertical (para cima).
+2. Ataque:
+    - Permite roubar a bola do adversário caso esteja ao alcance.
+3. Defesa:
+    - Modifica a posição da bola, tirando-a do alcance do adversário.
+4. Arremesso:
+    - Permite lançar a bola a uma distância definida em direção à cesta.
 
 ## Como Executar
 Para compilar e executar o jogo, siga os passos abaixo:
