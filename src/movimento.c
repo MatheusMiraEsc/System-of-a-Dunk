@@ -82,24 +82,33 @@ void moverJogador1(char direcao, int *jogador1X, int *jogador1Y){
     exibirJogador1(jogador1X, jogador1Y);
 
 }
-void movNpc(int posXInicial, int posYInicial, int velYInicial) {
+void movNpc(int posXInicial, int posYInicial, int velYInicial, int tempoRestante) {
     int x = posXInicial;
     int y = posYInicial;
     int velY = velYInicial;
 
     while (y <= CHAO || velY == 0) {
         limparJogador(&x, &y);
-        y -= velY;
+        y += velY;
 
-        velY -= GRAVIDADE;
-
+        velY += GRAVIDADE;
+        
         exibirNpc(x, y);
         screenUpdate();
 
         usleep(INTERVALO_TEMPO);
-
+        if (tempoRestante==10){
+            while(x>MINX){
+                limparJogador(&x, &y);
+                x-=2;
+                exibirNpc(x, y);
+                screenUpdate();
+                usleep(INTERVALO_TEMPO/10);
+            }
+        }
     }
     limparJogador(&x, &y);
+    exibirNpc(x, y);
 
 }
 

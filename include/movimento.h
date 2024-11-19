@@ -14,6 +14,6 @@ void limparJogador(int *jogador1X,int *jogador1Y);
 void exibirJogador1(int *x, int *y);
 void exibirNpc(int x, int y);
 void moverJogador1(char direcao, int *jogador1X,int *jogador1Y);
-void movNpc(int posXInicial, int posYInicial, int velYInicial);
+void movNpc(int posXInicial, int posYInicial, int velYInicial, int tempoRestante);
 void aplicarGravidade(int *jogador1Y, int *velocidadeY);
 #endif

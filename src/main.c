@@ -83,7 +83,7 @@ int main()
                     atualizarPontuacao(0);
                     exibirJogador1(jogador1X, jogador1Y);
                     exibirNpc(npcX, npcY);  
-                    movNpc(npcX, npcY, velocidadeY1);
+                    movNpc(npcX, npcY, velocidadeY1, tempoRestante);
                     screenGotoxy(60,1);
                     printf("Tempo restante: %ds", tempoRestante);
                     if(ch == 'w' || ch == 'a' || ch == 'd')
