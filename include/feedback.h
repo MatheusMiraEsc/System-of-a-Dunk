@@ -9,4 +9,5 @@ typedef struct{
 int atualizarPontuacao(int pontos);
 void confirmarJogador(Jogador *jogador);
 void salvarPontuacao(Jogador jogador);
+void exibirRanking();
 #endif

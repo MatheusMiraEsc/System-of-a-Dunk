@@ -113,8 +113,8 @@ int main()
                     printf("Tempo esgotado! Salvando pontuação...\n");
                     salvarPontuacao(*jogador);
                     usleep(INTERVALO_TEMPO * 20);
+                    exibirRanking();
                     estadoJogo = 0;
-                    break;
                 }
                 
             }
