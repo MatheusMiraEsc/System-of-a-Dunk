@@ -9,6 +9,7 @@
 
 ## Descrição
 O **System-of-a-Dunk** é um jogo de basquete de terminal, desenvolvido em C, que busca proporcionar uma experiência interativa e divertida, utilizando conceitos fundamentais de programação imperativa e funcional.
+
 O objetivo principal é arremesar a bola na cesta adversária para obter pontos, o jogador que alcançar a quantidade de pontos máxima primeiro ganha a partida.
 
 ## Mecânicas do Jogo
@@ -47,13 +48,17 @@ Para compilar e executar o jogo, siga os passos abaixo:
     ```
 
 ## Funcionalidades
-- [ ] Movimentação do jogador
-- [ ] Arremessos para a cesta
-- [ ] Sistema de pontuação
-- [ ] Temporizador de partida
-- [ ] Efeitos visuais e sonoros no terminal
+- [ ] Movimentação do jogador: controle dinâmico no terminal.
+- [ ] Arremessos para a cesta: simulação de jogadas reais.
+- [ ] Sistema de pontuação: registro automático de pontos.
+- [ ] Temporizador de partida: limite de tempo configurável.
+- [ ] Efeitos visuais e sonoros no terminal: elementos gráficos e auditivos no terminal.
 
 ## Contribuições
-Contribuições são bem-vindas! Sinta-se à vontade para abrir _issues_ e enviar _pull requests_.
+Contribuições são muito bem-vindas! Se desejar colaborar, siga os passos abaixo:
+
+1. Abra uma issue para sugerir melhorias ou relatar problemas.
+2. Crie um fork do repositório.
+3. Envie suas alterações via pull request, explicando as modificações realizadas.
 
 
